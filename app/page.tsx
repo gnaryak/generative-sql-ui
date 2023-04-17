@@ -3,11 +3,15 @@
 import { useState } from "react";
 import axios from 'axios';
 
+const textColorClassName = 'text-zinc-600';
+
 function Query({ query }: { query: string }) {
   return (
   <label>Query
       <br />
-      <textarea id="query" readOnly rows={5} cols={50} value={query} />
+      <textarea id="query" readOnly rows={5} cols={50} 
+        value={query} 
+        className={textColorClassName} />
     </label>
   )
 }
@@ -16,7 +20,9 @@ function QueryResponse({ queryResponse }: { queryResponse: string }) {
   return (
     <label>Response
       <br />
-      <textarea id="query-response" readOnly rows={10} cols={50} value={queryResponse} />
+      <textarea id="query-response" readOnly rows={10} cols={50} 
+        value={queryResponse} 
+        className={textColorClassName} />
     </label>
   )
 }
@@ -64,11 +70,14 @@ export default function Home() {
   
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-6xl font-bold">Generative SQL</h1>
+      <h1 className="text-6xl font-bold text-purple-400">Generative SQL</h1>
       <form onSubmit={handleClick} className="flex flex-col items-center">
         <label>What do you want to ask your database?
           <br />
-          <input type="text" size={50} value={prompt} onChange={handlePrompt} />
+          <input type="text" size={50} 
+            value={prompt} 
+            onChange={handlePrompt} 
+            className={textColorClassName} />
         </label>
         <button type="submit" disabled={submitting}>Query Database</button>
         <br />
