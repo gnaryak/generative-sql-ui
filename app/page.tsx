@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import axios from 'axios';
+import config from './config';
 
 const textColorClassName = 'text-zinc-600';
 
@@ -39,12 +40,13 @@ export default function Home() {
 
   async function handleClick(e: React.FormEvent<HTMLFormElement>): Promise<void> {
     e.preventDefault();
-    console.log(prompt);
+    const url = `http://${config.api.host}:${config.api.port}/gen-sql`;
+    console.log(`sending "${prompt}" to ${url}...`);
     setSubmitting(true);
     setQuery('Loading...');
     setQueryResponse('Loading...');
     try {
-      const { data, status } = await axios.post('http://localhost:8000/gen-sql',
+      const { data, status } = await axios.post(url,
         { prompt },
         {
           headers: {
@@ -52,6 +54,7 @@ export default function Home() {
             Accept: 'application/json',
           }
         });
+      console.log(`Response status: ${status}`);
       setQuery(data.query);
       setQueryResponse(JSON.stringify(data.queryResponse, null, 2));
     } catch(err: any) {
